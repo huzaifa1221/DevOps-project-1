@@ -9,17 +9,17 @@ pipeline {
         }
         stage('frontend') {
             steps {
-                sh 'cd frontend && docker build -t project-1:frontend .'
-                sh 'docker tag project-1:frontend 010526286234.dkr.ecr.us-east-1.amazonaws.com/project-1:frontend'
-                sh 'docker push 010526286234.dkr.ecr.us-east-1.amazonaws.com/project-1:frontend'
+                sh 'cd frontend && docker build -t lightfeather:frontend .'
+                sh 'docker tag lightfeather:frontend 010526286234.dkr.ecr.us-east-1.amazonaws.com/lightfeather:frontend'
+                sh 'docker push 010526286234.dkr.ecr.us-east-1.amazonaws.com/lightfeather:frontend'
                 sh 'aws ecs update-service --cluster light-feather-cluster --service frontend-service --force-new-deployment'
             }
         }
         stage('backend') {
             steps {
-                sh 'cd backend && docker build -t project-1:backend .'
-                sh 'docker tag project-1:backend 010526286234.dkr.ecr.us-east-1.amazonaws.com/project-1:backend'
-                sh 'docker push 010526286234.dkr.ecr.us-east-1.amazonaws.com/project-1:backend'
+                sh 'cd backend && docker build -t lightfeather:backend .'
+                sh 'docker tag lightfeather:backend 010526286234.dkr.ecr.us-east-1.amazonaws.com/lightfeather:backend'
+                sh 'docker push 010526286234.dkr.ecr.us-east-1.amazonaws.com/lightfeather:backend'
                 sh 'aws ecs update-service --cluster light-feather-cluster --service backend-service --force-new-deployment'
 
             }
