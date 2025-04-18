@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('config') {
+            steps {
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 299367009966.dkr.ecr.us-east-1.amazonaws.com'
+            }
+        }
+        stage('frontend') {
+            steps {
+                sh 'cd frontend && docker build -t lightfeather:frontend .'
+                sh 'docker tag lightfeather:frontend 299367009966.dkr.ecr.us-east-1.amazonaws.com/lightfeather:frontend'
+                sh 'docker push 299367009966.dkr.ecr.us-east-1.amazonaws.com/lightfeather:frontend'
+                sh 'aws ecs update-service --cluster light-feather-cluster --service frontend-service --force-new-deployment'
+            }
+        }
+        stage('backend') {
+            steps {
+                sh 'cd backend && docker build -t lightfeather:backend .'
+                sh 'docker tag lightfeather:backend 299367009966.dkr.ecr.us-east-1.amazonaws.com/lightfeather:backend'
+                sh 'docker push 299367009966.dkr.ecr.us-east-1.amazonaws.com/lightfeather:backend'
+                sh 'aws ecs update-service --cluster light-feather-cluster --service backend-service --force-new-deployment'
+
+            }
+        }
+    }
+}

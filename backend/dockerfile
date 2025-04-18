@@ -1,0 +1,7 @@
+FROM node:16.20-bookworm
+
+COPY . . 
+EXPOSE 8080
+
+RUN npm ci
+CMD [ "npm","start" ]
