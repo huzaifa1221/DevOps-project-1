@@ -4,5 +4,5 @@ variable "AWS_REGION" {
 
 variable "vpc_id" {
   type = string
-  default = "vpc-086a16df476b9c49c"
+  default = "vpc-06770f4e7c8254ee1"
 }
