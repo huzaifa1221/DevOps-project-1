@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        SHELL = '/bin/zsh'
-    }
+    // environment {
+    //     SHELL = '/bin/zsh'
+    // }
     
     stages {
         stage('config') {
