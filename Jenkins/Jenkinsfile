@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('config') {
             steps {
-                sh 'export PATH=$PATH:usr/local/bin'
+                sh 'export PATH=$PATH:usr/local/bin/aws:usr/local/bin/docker'
                 sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 010526286234.dkr.ecr.us-east-1.amazonaws.com'
             }
         }
